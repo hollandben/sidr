@@ -8,7 +8,8 @@
 
 ;(function( $ ){
 
-  var sidrMoving = false,
+  var settings,
+      sidrMoving = false,
       sidrOpened = false;
 
   // Private methods
@@ -99,6 +100,9 @@
         scrollTop = $html.scrollTop();
         $html.css('overflow-x', 'hidden').scrollTop(scrollTop);
 
+        // Call the beforeOpen method in the settings
+        settings.beforeOpen();
+
         // Open menu
         $body.css({
           width: $body.width(),
@@ -107,6 +111,10 @@
         $menu.css('display', 'block').animate(menuAnimation, speed, function() {
           sidrMoving = false;
           sidrOpened = name;
+
+          // Call the afterOpen method in the settings
+          settings.afterOpen();
+
           // Callback
           if(typeof callback === 'function') {
             callback(name);
@@ -133,6 +141,9 @@
           menuAnimation = {right: '-' + menuWidth + 'px'};
         }
 
+        // Call the beforeClose method in the settings
+        settings.beforeClose();
+
         // Close menu
         scrollTop = $html.scrollTop();
         $html.removeAttr('style').scrollTop(scrollTop);
@@ -143,6 +154,10 @@
           $('html').removeAttr('style');
           sidrMoving = false;
           sidrOpened = false;
+
+          // Call the afterClose method in the settings
+          settings.afterClose();
+
           // Callback
           if(typeof callback === 'function') {
             callback(name);
@@ -179,13 +194,17 @@
 
   $.fn.sidr = function( options ) {
 
-    var settings = $.extend( {
-      name          : 'sidr', // Name for the 'sidr'
-      speed         : 200,    // Accepts standard jQuery effects speeds (i.e. fast, normal or milliseconds)
-      side          : 'left', // Accepts 'left' or 'right'
-      source        : null,   // Override the source of the content.
-      renaming      : true,   // The ids and classes will be prepended with a prefix when loading existent content
-      body          : 'body'  // Page container selector,
+    settings = $.extend( {
+      name          : 'sidr',        // Name for the 'sidr'
+      speed         : 200,           // Accepts standard jQuery effects speeds (i.e. fast, normal or milliseconds)
+      side          : 'left',        // Accepts 'left' or 'right'
+      source        : null,          // Override the source of the content.
+      renaming      : true,          // The ids and classes will be prepended with a prefix when loading existent content
+      body          : 'body',        // Page container selector,
+      beforeOpen    : function() {}, // Function to be called just before the menu opens
+      afterOpen     : function() {}, // Function to be called after the menu opens
+      beforeClose   : function() {}, // Function to be called just before the menu closes
+      afterClose    : function() {}  // Function to be called after the menu closes
     }, options);
 
     var name = settings.name,

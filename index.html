@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sidr </title>
+    <link rel="stylesheet" href="dist/stylesheets/jquery.sidr.dark.css">
+    <style>
+    #fixed {
+        position: fixed;
+        width: 100%;
+        background: #F2F2F2;
+    }
+    </style>
+</head>
+<body>
+
+    <a id="simple-menu" href="#sidr">Toogle menu</a>
+    <p id="fixed">Hello World</p>
+
+    <div id="sidr">
+      <ul>
+        <li><a href="#">List 1</a></li>
+        <li class="active"><a href="#">List 2</a></li>
+        <li><a href="#">List 3</a></li>
+      </ul>
+    </div>
+
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="src/jquery.sidr.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('#simple-menu').sidr({
+        side: 'right',
+        beforeOpen: function() { console.log('beforeOpen'); },
+        afterOpen: function() { console.log('afterOpen'); },
+        beforeClose: function() { console.log('beforeClose'); },
+        afterClose: function() { console.log('afterClose'); }
+      });
+    });
+    </script>
+
+</body>
+</html>
