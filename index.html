@@ -30,9 +30,9 @@
     $(document).ready(function() {
       $('#simple-menu').sidr({
         side: 'right',
-        beforeOpen: function() { console.log('beforeOpen'); },
+        beforeOpen: function(val) { console.log('beforeOpen', val); },
         afterOpen: function() { console.log('afterOpen'); },
-        beforeClose: function() { console.log('beforeClose'); },
+        beforeClose: function(val) { console.log('beforeClose', val); },
         afterClose: function() { console.log('afterClose'); }
       });
     });

@@ -101,7 +101,7 @@
         $html.css('overflow-x', 'hidden').scrollTop(scrollTop);
 
         // Call the beforeOpen method in the settings
-        settings.beforeOpen();
+        settings.beforeOpen(menuWidth);
 
         // Open menu
         $body.css({
@@ -142,7 +142,7 @@
         }
 
         // Call the beforeClose method in the settings
-        settings.beforeClose();
+        settings.beforeClose(menuWidth);
 
         // Close menu
         scrollTop = $html.scrollTop();
